@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface TaskRepository extends JpaRepository<Task,Long> {
     Task findByGenerateId(String generateId);
-    List<Task> findByComplete(boolean complete);
+    List<Task> findByComplete(Boolean complete);
 
 }

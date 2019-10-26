@@ -21,7 +21,7 @@ public class TaskController {
     public void addTask(@RequestBody Task task) {
        task.setGenerateId(RandomStringUtils.randomAlphanumeric(12));
         task.setCreate_at(new Date());
-        task.setUpdate_at(new Date());
+
         this.repository.save(task);
     }
     @GetMapping
@@ -45,7 +45,6 @@ public class TaskController {
         Task currentTask=this.repository.findByGenerateId(generateId);
         currentTask.setComplete(task.getComplete());
         currentTask.setTitle(task.getTitle());
-        currentTask.setCreate_at(new Date());
         currentTask.setUpdate_at(new Date());
         this.repository.save(currentTask);
     }
@@ -58,7 +57,7 @@ public class TaskController {
     }
 
     @GetMapping("/find")
-    public List<Task>findComplete(@RequestParam("filter") boolean filter){
+    public List<Task>findComplete(@RequestParam("filter") Boolean filter){
         return repository.findByComplete(!filter);
     }
 }

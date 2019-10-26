@@ -5,6 +5,7 @@ import com.example.task.repository.TaskRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -19,38 +20,45 @@ public class TaskController {
     @PostMapping("/create")
     public void addTask(@RequestBody Task task) {
        task.setGenerateId(RandomStringUtils.randomAlphanumeric(12));
+        task.setCreate_at(new Date());
+        task.setUpdate_at(new Date());
         this.repository.save(task);
     }
     @GetMapping
-    public List<Task> getTasks(){
+    public List<Task> getTasks() {
         return this.repository.findAll();
     }
+
     @DeleteMapping("/{generateId}")
     public void deleteTask(@PathVariable String generateId){
         Task taskToDel=this.repository.findByGenerateId(generateId);
         this.repository.delete(taskToDel);
     }
+
     @GetMapping("/{generateId}")
     public Task findTaskByGenerateId(@PathVariable String generateId) {
         return this.repository.findByGenerateId(generateId);
     }
+
     @PutMapping("/{generateId}/edit")
     public void editTask(@PathVariable String generateId,@RequestBody Task task){
         Task currentTask=this.repository.findByGenerateId(generateId);
-        currentTask.setComplete(task.isComplete());
+        currentTask.setComplete(task.getComplete());
         currentTask.setTitle(task.getTitle());
-        currentTask.setCreate_at(task.getCreate_at());
-        currentTask.setUpdate_at(task.getUpdate_at());
+        currentTask.setCreate_at(new Date());
+        currentTask.setUpdate_at(new Date());
         this.repository.save(currentTask);
     }
+
     @PutMapping("/{generateId}/complete")
     public void completeTask(@PathVariable String generateId,@RequestBody Task task) {
         Task currentTask = this.repository.findByGenerateId(generateId);
         currentTask.setComplete(true);
         this.repository.save(currentTask);
     }
+
     @GetMapping("/find")
     public List<Task>findComplete(@RequestParam("filter") boolean filter){
-        return repository.findByComplete(filter);
+        return repository.findByComplete(!filter);
     }
 }

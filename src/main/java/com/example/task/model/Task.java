@@ -6,7 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.time.LocalDate;
+import java.util.Date;
 
 
 @Entity
@@ -17,21 +17,21 @@ public class Task {
 
     private String generateId;
     private String title;
-    private boolean complete;
+    private Boolean complete;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate create_at;
+    private Date create_at;
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate update_at;
+    private Date update_at;
 
-    public Task(String generateId, String title, boolean complete, LocalDate create_at, LocalDate update_at) {
+    public Task() {
+    }
+
+    public Task(String generateId, String title, Boolean complete, Date create_at, Date update_at) {
         this.generateId = generateId;
         this.title = title;
         this.complete = complete;
         this.create_at = create_at;
         this.update_at = update_at;
-    }
-
-    public Task() {
     }
 
     public long getId() {
@@ -58,31 +58,27 @@ public class Task {
         this.title = title;
     }
 
-    public boolean isComplete() {
+    public Boolean getComplete() {
         return complete;
     }
 
-    public void setComplete(boolean complete) {
+    public void setComplete(Boolean complete) {
         this.complete = complete;
     }
 
-    public LocalDate getCreate_at() {
+    public Date getCreate_at() {
         return create_at;
     }
 
-    public void setCreate_at(LocalDate create_at) {
+    public void setCreate_at(Date create_at) {
         this.create_at = create_at;
     }
 
-    public LocalDate getUpdate_at() {
+    public Date getUpdate_at() {
         return update_at;
     }
 
-    public void setUpdate_at(LocalDate update_at) {
+    public void setUpdate_at(Date update_at) {
         this.update_at = update_at;
     }
-
-    //  public Date convertToDate(LocalDate localDate)throws Exception{
-    //    return new SimpleDateFormat("yyyy-MM-dd").parse(localDate.toString());
-    //}
 }

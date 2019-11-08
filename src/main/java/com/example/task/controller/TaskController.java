@@ -13,15 +13,16 @@ import java.util.List;
 public class TaskController {
 
     private TaskRepository repository;
-
     public TaskController(TaskRepository repository) {
         this.repository = repository;
     }
+
     @PostMapping("/create")
     public void addTask(@RequestBody Task task) {
        task.setGenerateId(RandomStringUtils.randomAlphanumeric(12));
         task.setCreate_at(new Date());
-
+       Task findtitle= repository.findByTitle(task.getTitle());
+        if(findtitle != null) throw new RuntimeException("Already Exists");
         this.repository.save(task);
     }
     @GetMapping

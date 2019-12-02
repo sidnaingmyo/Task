@@ -1,5 +1,9 @@
 package com.example.task.model;
 
+import com.example.task.annotation.Auth;
+import com.example.task.annotation.ExtendedEmailValidator;
+
+import com.example.task.annotation.datetimeformatannotation;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,18 +24,20 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
+    @Auth(value = "Auth",message = "must start with Auth")
+    private String name;
     private String generateId;
     private String title;
     private Boolean complete;
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date create_at;
+    @datetimeformatannotation
+    private String create_at;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date update_at;
-    @annotation
+    @ExtendedEmailValidator
     private String email;
 
-    private String payment;
+
+
 
 
 

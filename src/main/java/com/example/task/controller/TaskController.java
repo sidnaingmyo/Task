@@ -1,7 +1,9 @@
 package com.example.task.controller;
 
+import com.example.task.error.AlreadyExistException;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +22,15 @@ public class TaskController {
     @PostMapping("/create")
     public void addTask(@RequestBody Task task) {
        task.setGenerateId(RandomStringUtils.randomAlphanumeric(12));
-        task.setCreate_at(new Date());
-       Task findtitle= repository.findByTitle(task.getTitle());
-        if(findtitle != null) throw new RuntimeException("Already Exists");
-        this.repository.save(task);
+
+//        task.setCreate_at(new Date());
+   Task findtitle= repository.findByTitle(task.getTitle());
+        if(findtitle != null) throw new AlreadyExistException("Title is already Exists");
+//        Task findemail = repository.findByEmail(task.getEmail());
+//        if(findemail != null) throw new RuntimeException("Email already Exist");
+          this.repository.save(task);
     }
+
     @GetMapping
     public List<Task> getTasks() {
         return this.repository.findAll();
@@ -36,6 +42,7 @@ public class TaskController {
         this.repository.delete(taskToDel);
     }
 
+    @ApiOperation(value = "GGWP")
     @GetMapping("/{generateId}")
     public Task findTaskByGenerateId(@PathVariable String generateId) {
         return this.repository.findByGenerateId(generateId);

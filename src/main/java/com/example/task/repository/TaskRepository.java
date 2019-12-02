@@ -13,5 +13,6 @@ public interface TaskRepository extends JpaRepository<Task,Long> {
     Task findByGenerateId(String generateId);
     List<Task> findByComplete(Boolean complete);
     Task findByTitle(String title);
+    Task findByEmail(String email);
 
 }

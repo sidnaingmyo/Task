@@ -24,17 +24,19 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Auth(value = "Auth",message = "must start with Auth")
+    //@Auth(value = "Auth",message = "must start with Auth")
     private String name;
     private String generateId;
     private String title;
     private Boolean complete;
-    @datetimeformatannotation
-    private String create_at;
+   // @datetimeformatannotation
+    private Date create_at;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private Date update_at;
     @ExtendedEmailValidator
     private String email;
+    private String password;
+    private String EncryptedPassword;
 
 
 

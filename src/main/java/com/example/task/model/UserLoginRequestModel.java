@@ -4,7 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Getter @Setter
-public class UserRequestModel {
-    private String username;
+public class UserLoginRequestModel {
+    private String email;
     private String password;
 }

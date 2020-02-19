@@ -3,32 +3,29 @@ package com.example.task.controller;
 import com.example.task.error.AlreadyExistException;
 import com.example.task.model.Task;
 import com.example.task.repository.TaskRepository;
+import com.example.task.service.TaskServiceImpl;
 import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/todo/list")
+@RequestMapping("/todo")
 public class TaskController {
 
+    @Autowired
     private TaskRepository repository;
-    public TaskController(TaskRepository repository) {
-        this.repository = repository;
-    }
+
+    @Autowired
+    private TaskServiceImpl taskServiceimpl;
+
 
     @PostMapping("/create")
-    public void addTask(@RequestBody Task task) {
-       task.setGenerateId(RandomStringUtils.randomAlphanumeric(12));
-
-//        task.setCreate_at(new Date());
-   Task findtitle= repository.findByTitle(task.getTitle());
-        if(findtitle != null) throw new AlreadyExistException("Title is already Exists");
-//        Task findemail = repository.findByEmail(task.getEmail());
-//        if(findemail != null) throw new RuntimeException("Email already Exist");
-          this.repository.save(task);
+    public void createTask(@RequestBody Task task) {
+        this.taskServiceimpl.create(task);
     }
 
     @GetMapping

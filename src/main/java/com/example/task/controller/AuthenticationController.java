@@ -1,6 +1,6 @@
 package com.example.task.controller;
 
-import com.example.task.model.UserRequestModel;
+import com.example.task.model.UserLoginRequestModel;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -29,7 +29,7 @@ public class AuthenticationController {
 
 
     @PostMapping("/login")
-        public void fakeMapping(@RequestBody UserRequestModel user){
+        public void fakeMapping(@RequestBody UserLoginRequestModel user){
             throw new IllegalArgumentException("This method should not be called");
 
         }
